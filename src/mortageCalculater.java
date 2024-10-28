@@ -1,10 +1,7 @@
-import java.util.Date;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.awt.*;
 import java.text.NumberFormat;
 
-public class App {
+public class mortageCalculater {
     public static void main(String[] args) throws Exception {
 final byte MonthsInYear=12;
 final byte Percent =100;
@@ -29,7 +26,7 @@ final byte Percent =100;
 
         System.out.print("mortgage: "+mortageFormat);
 
-
+scanner.close();
     }
 
 }
