@@ -2,31 +2,42 @@ import java.util.Scanner;
 import java.text.NumberFormat;
 
 public class mortageCalculater {
-    public static void main(String[] args) throws Exception {
-final byte MonthsInYear=12;
-final byte Percent =100;
+    static void calculate(){
+        final byte MonthsInYear = 12;
+        final byte Percent = 100;
+        int principal;
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Principal: ");
-        int principal = scanner.nextInt();
+        do {
+            System.out.print("Principal ($1K - $1M): ");
+            principal = scanner.nextInt();
+        } while (principal < 1000 || principal > 1_000_000);
 
-        System.out.print("Annual Interest Rate: ");
-        float annualRate=scanner.nextFloat();
-        float MonthsAnnualRate = annualRate/Percent/MonthsInYear;
+        float annualRate;
+        do {
+            System.out.print("Annual Interest Rate greater than 0 and less than or equal 30: ");
+            annualRate = scanner.nextFloat();
+        } while (annualRate <= 0 || annualRate > 30);
 
-        System.out.print("Period (Years): ");
-        float period=scanner.nextFloat();
-        float numberOfPayments=period*MonthsInYear;
+        float MonthsAnnualRate = annualRate / Percent / MonthsInYear;
+        float period;
+        do {
+            System.out.print("Period (Years) between 1 - 30 : ");
+            period = scanner.nextFloat();
+        } while (period < 1 && period > 30);
 
-       
-        
-        double mortage=principal*(MonthsAnnualRate*Math.pow((1+MonthsAnnualRate),numberOfPayments))/(Math.pow((1+MonthsAnnualRate),numberOfPayments)-1);
+        float numberOfPayments = period * MonthsInYear;
+        double mortage = principal * (MonthsAnnualRate * Math.pow((1 + MonthsAnnualRate), numberOfPayments))
+                / (Math.pow((1 + MonthsAnnualRate), numberOfPayments) - 1);
 
-        String mortageFormat=NumberFormat.getCurrencyInstance().format(mortage);
- 
+        String mortageFormat = NumberFormat.getCurrencyInstance().format(mortage);
+        System.out.print("mortgage: " + mortageFormat);
 
-        System.out.print("mortgage: "+mortageFormat);
+        scanner.close();
+    }
+    public static void main(String[] args) throws Exception {
 
-scanner.close();
+       calculate();
+
     }
 
 }
